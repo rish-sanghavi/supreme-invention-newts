@@ -1,7 +1,3 @@
-// @ts-nocheck
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import { useWebRTC, RealtimeVideo } from "@outspeed/react";
 import { useState, useRef, useEffect } from 'react'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism'
