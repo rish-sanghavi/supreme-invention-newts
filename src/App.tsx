@@ -5,8 +5,9 @@ import { useWebRTC, RealtimeVideo } from "@outspeed/react";
 import { useState, useRef, useEffect } from 'react'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism'
+import { useWebRTC, RealtimeVideo } from "@outspeed/react";
 
-export default function PythonIDE() {
+export function PythonIDE() {
   const [code, setCode] = useState('# Write your Python code here\nprint("Hello, World!")')
   const [output, setOutput] = useState('')
   const editorRef = useRef(null)
@@ -121,4 +122,33 @@ export default function PythonIDE() {
       </div>
     </div>
   )
+}
+
+export default function App() {
+  const { 
+    connect,
+    connectionStatus,
+    getRemoteVideoTrack,
+    getLocalVideoTrack
+    } = useWebRTC({
+      config: {
+        // Add your function URL.
+        functionURL: "http://0.0.0.0:8080/", 
+        audio: true,
+        video: false,
+      },
+    });
+
+  return (
+    <div>
+      <span>Connection Status: {connectionStatus}</span>
+      {connectionStatus === "SetupCompleted" && (
+        <button onClick={connect}>Connect</button>
+      )}
+      {/* To show remote video stream */}
+      <RealtimeVideo track={getRemoteVideoTrack()} />
+      {/* To show local video stream */}
+      <RealtimeVideo track={getLocalVideoTrack()} />
+    </div>
+  );
 }
